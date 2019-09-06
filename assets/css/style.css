@@ -1,0 +1,13 @@
+body{
+    background: url(../images/blue\ skies.jpg);
+    background-color: #4aaaa5;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    background-size: 100%;
+    background-attachment: fixed;
+    height: 800px;
+    text-align: center
+}
+#start{
+    
+}
