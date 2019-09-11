@@ -6,34 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Trivia Game</title>
-    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
 </head>
 
 <body>
     <!--pick a theme-->
     <!--need a start button-->
-
-    <button id="start"></button>
-    <button id="done"></button>
-    <div>
-        <h1 id="btqhead">Book Trivia Questions</h1>
+    <div id="container">
+    <h1 id="btqhead">Book Trivia</div>
+    <button id="start-button" type="button" class="btn btn-primary">Start</button>
+    <p>instructions</p>
     </div>
-    <div>
-        <img src="" alt="stack of books">
-    </div>
-    <div>
-        <p>instructions</p>
-    </div>
+    
+    <!--need div for timer-->
+    <div id="timer"></div>
+    
+    <!--need div to hold questions and answer choices-->
     <div>
         <form id="question"></form>
     </div>
 
-    <div id="correct-answers">correct answers</div>
-    <div id="incorrect-answers">incorrect answers</div>
-    <div id="unanswered-questions">unanswered</div>
+    <!--need div for the correct, incorrect or unaswered questions-->
+    <div id="correct-answers"></div>
+    <div id="incorrect-answers"></div>
+    <div id="unanswered-questions"></div>
+
+    <div id="reset-button"></div>
+    <button id="end-button" type="button" class="btn btn-primary"></button>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="./assets/javascript/app.js"></script>
