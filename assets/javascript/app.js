@@ -65,81 +65,98 @@ console.log(questionBank[2].correct);
 //create variables for correct answers, incorrect answers and unanswered questions.
 let firstQuestion = 0;
 let firstAnswer = 0;
+
+function questionLoad() {
+  $("#question").html("<h6>" + questionBank[firstQuestion].question + "</h6>");
+  for (var i = 0; i < questionBank[firstQuestion].answers.length; i++) {
+  $("#question").append("<br>" + "<input type='radio' value='" + questionBank[firstAnswer].answers[i] + "'>" + questionBank[firstAnswer].answers[i]);
+  }
+}
+questionLoad();
+
+
+  let nextQuestion = function () {
+    let remainingQuestions = questionBank - 1;
+    if (remainingQuestions !== 0) {
+      firstQuestion++;
+      firstAnswer++;
+      questionLoad();
+    }
+    else {
+      $("#question").append("<p>" + remainingQuestions + "</p>")
+    }
+  }
+  nextQuestion();
+
+  nextQuestion();
+
+  nextQuestion();
+
+  nextQuestion();
+
+nextQuestion();
+
+nextQuestion();
+nextQuestion();
+
+nextQuestion();
+nextQuestion();
+nextQuestion();
+
+nextQuestion();
+/*$("#question").on("click", function () {
+  //make the results variable global; add if then statements here. add results to the start click event.
+  if (questionBank.answers === correctAnswers) {
+    correctAnswers++;
+  }
+  else if (questionBank.answers !== correctAnswers) {
+    incorrecAnswers++;
+  }
+  else {
+    unansweredQuestions++;
+  }
+})
+
+//create reset.
+let gameReset = function(){
+$("#reset-button").on("click", function(){
+questionLoad();
+});
+}
+
+//create function for these to display to window after all questions have been answered or time runs out.
+
+let resutls = function(){
 let correctAnswers = 0;
 let incorrectAnswers = 0;
 let unansweredQuestions = 0;
 let correctAnswers = questionBank.correct;
-
-
-function questionLoad() {
-  $("#question").html("<h6>" + questionBank[firstQuestion].question + "</h6>");
-
-  //should first answer be a click event?
-  for (var i = 0; i < questionBank[firstQuestion].answers.length; i++) {
-    $("#question").append("<br>" + "<input type='radio' value='" + questionBank[firstAnswer].answers[i] + "'>" + questionBank[firstAnswer].answers[i]);
-   /* $("#question").on("click", function () {
-      //make the results variable global; add if then statements here. add results to the start click event.
-      if (questionBank.answers === correctAnswers) {
-        correctAnswers++;
-      }
-      else if (questionBank.answers !== correctAnswers) {
-        incorrecAnswers++;
-      }
-      else {
-        unansweredQuestions++;
-      }
-    })
-  }
-}*/
-
-let nextQuestion = function () {
-  let remainingQuestions = questionBank - 1;
-  if (remainingQuestions === 0) {
-    $("#question").append("<br>" + "<p>" + "No questions left" + "</p>")
-  }
-  else {
-    firstQuestion++;
-    firstAnswer++;
-    questionLoad();
-  }
+$("#correct-answers").text("You answered " + correctAnswers + " correct");
+$("#incorrect-answers").text("You answered " + incorrectAnswers + " incorrectly");
+$("#unanswered-questions").text("There were " + unansweredQuestions + " remaining")
+let resetButton = $("#reset-button");
+$("#reset-button").append("<button type='button' class='btn btn-primary'>" + "Reset" + "</button>")
+gameReset();
 }
 
-//create reset.
-/*let gameReset = function(){
-  $("#reset-button").on("click", function(){
-    questionLoad();
-  });
-}*/
-
-//create function for these to display to window after all questions have been answered or time runs out.
-
-/*let resutls = function(){
-  $("#correct-answers").text("You answered " + correctAnswers + " correct");
-  $("#incorrect-answers").text("You answered " + incorrectAnswers + " incorrectly");
-  $("#unanswered-questions").text("There were " + unansweredQuestions + " remaining")
-  let resetButton = $("#reset-button");
-  $("#reset-button").append("<button type='button' class='btn btn-primary'>" + "Reset" + "</button>")
-  gameReset();
-}*/
-
-/*//create timer variables and function for timer to run.
+//create timer variables and function for timer to run.
 //should be part of my click event, which will be the start button
 let counter = 30;
 let timer = setInterval(countdown, 1000);
 
 //will reset the timer so it doesn't keep going into negative numbers.
 function resetTimer(){
-  clearInterval (timer);
+clearInterval (timer);
 }
 
 //will start the timer.
 function countdown(){
-   counter--;
-   $("#timer").html("Time Remaining: " + counter + " seconds");
-   if (counter === 0){
-       resetTimer();
-   }
-}*/
+counter--;
+$("#timer").html("Time Remaining: " + counter + " seconds");
+if (counter === 0){
+   resetTimer();
+}
+}
 
 //create click event with start button.
 //timer should start counting down.
@@ -148,17 +165,16 @@ function countdown(){
 //incorrect, correct and unanswered should accumulate and display at end.
 
 
-/*$("#start-button").on("click", function(){
-  let start = $("#start-button");
-  let timer = setInterval(countdown, 1000);
-  countdown();
-  questionLoad();
-  if(counter === 0 || ){
-    resetTimer;
-    countdown();
-    nextQuestion();
-    nextAnswer();
-  }
+$("#start-button").on("click", function(){
+let start = $("#start-button");
+let timer = setInterval(countdown, 1000);
+countdown();
+questionLoad();
+if(counter === 0 || ){
+resetTimer;
+countdown();
+nextQuestion();
+nextAnswer();
+}
 
 })*/
-
