@@ -7,34 +7,49 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Trivia Game</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
-    
+
 </head>
 
 <body>
     <!--pick a theme-->
     <!--need a start button-->
     <div id="container">
-    <h1 id="btqhead">Book Trivia</div>
-    <button id="start-button" type="button" class="btn btn-primary">Start</button>
-    <p>instructions</p>
+        <h1 id="btqhead">Book Trivia
     </div>
-    
-    <!--need div for timer-->
-    <div id="timer"></div>
-    
-    <!--need div to hold questions and answer choices-->
     <div>
-        <form id="question"></form>
+
     </div>
+    <div id="bigbox">
+        <div id="instructions-div">
+            <p>Instructions:
+                <li>Click Start.</li>
+                <li>A question and timer will appear. Make a selection to answer the question.</li>
+                <li>You will have 30 seconds for each question to make a selection.</li>
+                <li>To restart the game, click reset.</li>
+            </p>
+        </div>
+        <div id="new-button">
+            <button id="start-button" type="button" class="btn btn-primary">Start</button>
+        </div>
+        <!--need div for timer-->
+        <div id="timer"></div>
 
-    <!--need div for the correct, incorrect or unaswered questions-->
-    <div id="correct-answers"></div>
-    <div id="incorrect-answers"></div>
-    <div id="unanswered-questions"></div>
+        <!--need div to hold questions and answer choices-->
+        <div id="qbox">
+            <form id="question"></form>
+        </div>
 
-    <div id="reset-button"></div>
+        <div id="submit-button"></div>
+
+        <!--need div for the correct, incorrect or unaswered questions-->
+        <div id="correct-answers" class="answer-display"></div>
+        <div id="incorrect-answers" class="answer-display"></div>
+        <div id="unanswered-questions" class="answer-display"></div>
+
+        <div id="reset-button"></div>
+    </div>
     <div></div>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
