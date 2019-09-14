@@ -1,11 +1,3 @@
-/*click start.
-counter begins counting down for displayed question.
-user clicks on an answer.
-after user answers or the couter === 0, next question displays.
-if no more questions, results and done button display.
-user clicks done to reset the game.
-*/
-
 let questionBank = [
   {
     question: "In what book did the following quote appear: '...remember that you are braver than you believe, stronger thank you seem and smarter than you think'?",
@@ -79,8 +71,26 @@ let firstAnswer = 0;
 let correctAnswers = 0;
 let incorrectAnswers = 0;
 let unansweredQuestions = 0;
+let counter = 30;
+$("#timer").text("Remaining Time: " + counter);
+let counterStart;
+let counterRunning = false;
+function counterStop(){
+  clearInterval(counterStart);
+  counter;
+}
+function decrement(){
+  counter--;
+  $("#timer").text("Remaining Time: " + counter);
+  if (counter === 0){
+    counterStop();
+  }
+}
 
 function questionLoad() {
+  counter = 30;
+  counterStart = setInterval(decrement, 1000);
+  counterRunning = true;
   $("#question").html("<h6 class= questions>" + questionBank[firstQuestion].question + "</h6>");
   for (var i = 0; i < questionBank[firstQuestion].answers.length; i++) {
     $("#question").append("<br>" + "<input type='radio' value='" + questionBank[firstAnswer].answers[i] + "' class='answers' name='" + questionBank[firstQuestion].name + "'>" + questionBank[firstAnswer].answers[i]);
@@ -95,6 +105,42 @@ function questionLoad() {
 //if answer is wrong, accumulate to incorrect Answers
 //else, accumulate to unaswered questions.
 
+
+/* setTimeout(correctMessage, 5000);
+   function correctMessage() {
+     alert("Congrats...your answer was correct!")
+     console.log("5 second break to show message")
+ 
+ setTimeout(incorrectMessage, 5000);
+ function incorrectMessage() {
+ alert("Sorry...your answer was incorrect.")*/
+
+
+//create submit button
+$("#submit-button").on("click", function () {
+  //alert("button working")
+  let solution = questionBank[firstQuestion].correct;
+  console.log("solution" + solution)
+  var userChoice = $("input[name=" + questionBank[firstQuestion].name + "]:checked").val();
+  console.log("user chose: " + userChoice)
+  if (userChoice == solution) {
+    correctAnswers++;
+    console.log("correct answer: " + correctAnswers);
+  }
+  else if (userChoice != solution) {
+    incorrectAnswers++;
+    console.log("incorrect answer: " + incorrectAnswers);
+
+  }
+  else if (userChoice == undefined) {
+    unansweredQuestions++;
+    console.log("unanswered questions: " + unansweredQuestions)
+  }
+  nextQuestion();
+})
+
+
+
 let nextQuestion = function () {
   let remainingQuestions = questionBank.length - 1;
   if (remainingQuestions === firstQuestion) {
@@ -108,6 +154,7 @@ let nextQuestion = function () {
   else {
     firstQuestion++;
     firstAnswer++;
+    //put a timeout here and reset timer
     questionLoad();
   }
 }
@@ -116,46 +163,6 @@ let nextQuestion = function () {
 //should be part of my click event, which will be the start button
 //will reset the timer so it doesn't keep going into negative numbers.
 //will start the timer.
-let counter = 30;
-$("#timer").text("Time Remaining: " + counter);
-
-function resetTimer(){
-  clearInterval(counter);
-}
-
-function countdown() {
-  counter--;
-  $("#timer").html("Time Remaining: " + counter + " seconds");
-  if (counter === 0) {
-    resetTimer();
-  }
-}
-
-$("#submit-button").on("click", function () {
-  //alert("button working")
-  let solution = questionBank[firstQuestion].correct;
-  console.log("solution" + solution)
-  var userChoice = $("input[name=" + questionBank[firstQuestion].name + "]:checked").val();
-  console.log("user chose: " + userChoice)
-  if (userChoice == solution) {
-    correctAnswers++;
-    resetTimer();
-    console.log("correct answer: " + correctAnswers);
-  }
-  else if (userChoice != solution) {
-    incorrectAnswers++;
-    resetTimer();
-    console.log("incorrect answer: " + incorrectAnswers);
-  }
-  else if (userChoice == undefined) {
-    unansweredQuestions++;
-    resetTimer();
-    console.log("unanswered questions: " + unansweredQuestions)
-  }
-  nextQuestion();
-})
-
-
 
 
 
@@ -164,8 +171,8 @@ $("#submit-button").on("click", function () {
 //first question and answer should load.
 //the next question should load if user answers question before the counter === 0 || no answer and timer === 0;
 //incorrect, correct and unanswered should accumulate and display at end.
-let start = $("#start-button");
 
+let start = $("#start-button");
 $("#start-button").on("click", function () {
   //timer should start
   //questions, anwers, and submit button should display
@@ -174,10 +181,8 @@ $("#start-button").on("click", function () {
   //display results
   //display reset
   $("#start-button").hide();
-  let timer = setInterval(countdown, 1000);
-  countdown();
-  $("#submit-button").append("<button id='submit-button' type='submit' class='btn btn-primary'>" + "Submit" + "</button>");
   questionLoad();
+  $("#submit-button").append("<button id='submit-button' type='submit' class='btn btn-primary'>" + "Submit" + "</button>");
   gameReset();
 
 })
