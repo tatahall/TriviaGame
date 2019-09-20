@@ -59,97 +59,66 @@ let questionBank = [
     correct: "Shel Silverstein",
     name: "q10"
   },]
-console.log(questionBank[0].answers);
-console.log(questionBank[1].question);
-console.log(questionBank[2].correct);
-
-//create variable for first question to load.
-//create variables for correct answers, incorrect answers and unanswered questions.
-let firstQuestion = 0;
-let firstAnswer = 0;
-
-let correctAnswers = 0;
-let incorrectAnswers = 0;
-let unansweredQuestions = 0;
-let counter = 30;
-$("#timer").text("Remaining Time: " + counter);
-let counterStart;
-let counterRunning = false;
-function counterStop(){
-  clearInterval(counterStart);
-  counter;
-}
-function decrement(){
-  counter--;
-  $("#timer").text("Remaining Time: " + counter);
-  if (counter === 0){
-    counterStop();
+  console.log(questionBank[0].answers);
+  console.log(questionBank[1].question);
+  console.log(questionBank[2].correct);
+  
+  //create variable for first question to load.
+  //create variables for correct answers, incorrect answers and unanswered questions.
+  let firstQuestion = 0;
+  let firstAnswer = 0;
+  
+  let correctAnswers = 0;
+  let incorrectAnswers = 0;
+  let unansweredQuestions = 0;
+//create variables and functions for timer
+let counter = 16;
+let intervalId;
+let running = false;
+//starting timer
+function startTimer() {
+  if (!running) {
+    intervalId = setInterval(decrement, 1000);
+    running = true
   }
 }
 
+//decrementation of timer
+function decrement() {
+  counter--;
+  $("#timer").text("Remaining Time: " + counter);
+  if (counter === 0) {
+    stopTimer();
+  }
+}
+
+//stopping timer
+function stopTimer() {
+  running = false;
+  clearInterval(intervalId);
+}
+
+//create function to load questions and answers
 function questionLoad() {
-  counter = 30;
-  counterStart = setInterval(decrement, 1000);
-  counterRunning = true;
+  counter = 16;
+  startTimer();
   $("#question").html("<h6 class= questions>" + questionBank[firstQuestion].question + "</h6>");
   for (var i = 0; i < questionBank[firstQuestion].answers.length; i++) {
     $("#question").append("<br>" + "<input type='radio' value='" + questionBank[firstAnswer].answers[i] + "' class='answers' name='" + questionBank[firstQuestion].name + "'>" + questionBank[firstAnswer].answers[i]);
   }
 }
 
-//create a variable for the rest of the questions to display.
-//if no questions remain, hide the submit button and the questions&answers.
-//also display results of game
-//create a click event to select an answer
-//if the answer is correct, accumulate to correct Answers
-//if answer is wrong, accumulate to incorrect Answers
-//else, accumulate to unaswered questions.
-
-
-/* setTimeout(correctMessage, 5000);
-   function correctMessage() {
-     alert("Congrats...your answer was correct!")
-     console.log("5 second break to show message")
- 
- setTimeout(incorrectMessage, 5000);
- function incorrectMessage() {
- alert("Sorry...your answer was incorrect.")*/
-
-
-//create submit button
-$("#submit-button").on("click", function () {
-  //alert("button working")
-  let solution = questionBank[firstQuestion].correct;
-  console.log("solution" + solution)
-  var userChoice = $("input[name=" + questionBank[firstQuestion].name + "]:checked").val();
-  console.log("user chose: " + userChoice)
-  if (userChoice == solution) {
-    correctAnswers++;
-    console.log("correct answer: " + correctAnswers);
-  }
-  else if (userChoice != solution) {
-    incorrectAnswers++;
-    console.log("incorrect answer: " + incorrectAnswers);
-
-  }
-  else if (userChoice == undefined) {
-    unansweredQuestions++;
-    console.log("unanswered questions: " + unansweredQuestions)
-  }
-  nextQuestion();
-})
-
-
-
-let nextQuestion = function () {
+function nextQuestion() {
   let remainingQuestions = questionBank.length - 1;
   if (remainingQuestions === firstQuestion) {
     $("#submit-button").hide();
     $("#question").hide();
-    $("#correct-answers").text("You answered " + correctAnswers + " questions correctly");
-    $("#incorrect-answers").text("You answered " + incorrectAnswers + " questions incorrectly");
-    $("#unanswered-questions").text("There were " + unansweredQuestions + " unanswered questions");
-    $("#reset-button").append("<button id='reset-button' type='reset' class='btn btn-primary'>" + "Reset" + "</button>");
+    $("#timer").hide();
+    $("#answer-display").show();
+    $("#correct-answers").html("You answered " + correctAnswers + " questions correctly");
+    $("#incorrect-answers").html("You answered " + incorrectAnswers + " questions incorrectly");
+    $("#unanswered-questions").html("There were " + unansweredQuestions + " unanswered questions");
+    $("#reset-button").show();
   }
   else {
     firstQuestion++;
@@ -159,37 +128,59 @@ let nextQuestion = function () {
   }
 }
 
-//create timer variables and function for timer to run.
-//should be part of my click event, which will be the start button
-//will reset the timer so it doesn't keep going into negative numbers.
-//will start the timer.
+//create submit button
+$("#submit-button").on("click", function () {
+  //alert("button working")
+  let solution = questionBank[firstQuestion].correct;
+  console.log("solution" + solution)
 
-
-
-//create click event with start button. hide start button after being clicked.
-//timer should start counting down.
-//first question and answer should load.
-//the next question should load if user answers question before the counter === 0 || no answer and timer === 0;
-//incorrect, correct and unanswered should accumulate and display at end.
-
-let start = $("#start-button");
-$("#start-button").on("click", function () {
-  //timer should start
-  //questions, anwers, and submit button should display
-  //if no questions remain, the submitt button should hide
-  //hide questions and answers hide
-  //display results
-  //display reset
-  $("#start-button").hide();
-  questionLoad();
-  $("#submit-button").append("<button id='submit-button' type='submit' class='btn btn-primary'>" + "Submit" + "</button>");
-  gameReset();
-
+  var userChoice = $("input[name=" + questionBank[firstQuestion].name + "]:checked").val();
+  console.log("user chose: " + userChoice)
+  if (userChoice == solution) {
+    correctAnswers++;
+    console.log("correct answer: " + correctAnswers);
+  }
+  else if (userChoice == undefined) {
+    unansweredQuestions++;
+    console.log("unanswered questions: " + unansweredQuestions)
+  }
+  else if (userChoice != solution) {
+    incorrectAnswers++;
+    console.log("incorrect answer: " + incorrectAnswers);
+  }
+  nextQuestion();
 })
 
-//create reset.
-let gameReset = function () {
-  $("#reset-button").on("click", function () {
-    location.reload();
-  })
-}
+$("#submit-button").hide();
+$("#reset-button").hide();
+
+//create click event with start button. hide start button after being clicked.
+//timer should start
+//questions, anwers, and submit button should display
+//if no questions remain, the submitt button should hide
+//hide questions and answers hide
+//display results
+//display reset
+let start = $("#start-button");
+$("#start-button").on("click", function () {
+  $("#question").show();
+  $("#timer").show();
+  $("#start-button").hide();
+  $("#submit-button").show();
+  startTimer();
+  questionLoad();
+  
+})
+
+$("#reset-button").on("click", function () {
+  $("#reset-button").hide();
+  stopTimer();
+  counter = 16;
+  firstQuestion = 0;
+  firstAnswer = 0;
+  correctAnswers = 0;
+  incorrectAnswers = 0;
+  unansweredQuestions = 0;
+  $("#answer-display").hide();
+ $("#start-button").show();
+})

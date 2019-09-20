@@ -29,3 +29,11 @@ body{
     margin-left: 50px;
     margin-bottom: 50px;
 }
+#timer{
+    margin-bottom: 15px;
+    font-size: 25px;
+}
+#submit-button{
+    float: left;
+    margin-left: 60px;
+}

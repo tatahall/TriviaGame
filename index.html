@@ -41,15 +41,17 @@
             <form id="question"></form>
             <h5 id="answer-message"></h5>
         </div>
-
-        <div id="submit-button"></div>
-
-        <!--need div for the correct, incorrect or unaswered questions-->
-        <div id="correct-answers" class="answer-display"></div>
-        <div id="incorrect-answers" class="answer-display"></div>
-        <div id="unanswered-questions" class="answer-display"></div>
-
-        <div id="reset-button"></div>
+        
+        <div id="answer-display">
+            
+            <!--need div for the correct, incorrect or unaswered questions-->
+            <div id="correct-answers" class="results"></div>
+            <div id="incorrect-answers" class="results"></div>
+            <div id="unanswered-questions" class="results"></div>
+            
+        </div>
+        <button id='reset-button' type='reset' class='btn btn-primary'>Reset</button>
+        <button id='submit-button' type='submit' class='btn btn-primary'>Submit</button>
     </div>
     <div></div>
 
